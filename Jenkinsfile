@@ -7,13 +7,11 @@ pipeline {
 			}
 		}
 		stage('Test') {
-			steps {
+			parallels {
 				echo 'Testing'
-			},
-			{
-				echo 'Testing in line'
+			},{
+				echo 'Parallel step'
 			}
-		}
 		stage('Deploy') {
 			steps {
 				echo 'Deploying'
