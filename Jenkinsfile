@@ -7,13 +7,12 @@ pipeline {
 			}
 		}
 		stage('Parallel Tests') {
-			parallels {
+			parallel {
 				stage('Test 1') {
 					steps {
 						echo 'Testing'
 					}
 				}
-			},{
 				stage (Test 2) {
 					steps {	
 						echo 'Parallel step'
