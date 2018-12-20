@@ -6,11 +6,19 @@ pipeline {
 				echo 'Bulding'
 			}
 		}
-		stage('Test') {
+		stage('Parallel Tests') {
 			parallels {
-				echo 'Testing'
+				stage('Test 1') {
+					steps {
+						echo 'Testing'
+					}
+				}
 			},{
-				echo 'Parallel step'
+				stage (Test 2) {
+					steps {	
+						echo 'Parallel step'
+					}
+				}
 			}
 		stage('Deploy') {
 			steps {
