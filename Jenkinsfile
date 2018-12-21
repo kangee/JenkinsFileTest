@@ -70,6 +70,7 @@ pipeline {
 		stage('Notify users') {
 			steps {
 				echo 'Emailing every one'
+				build job: 'TOOL_2798EMAILTEST', parameters: [[$CLASS: 'BooleanParameterValue, name: 'SEND_TO_ALL, value: false]]
 			}
 		}	
 	}
