@@ -1,5 +1,8 @@
 pipeline {
     agent any
+	parameters {
+		booleanParam(name: 'SEND_RESULT_TO_EVERYONE', defaultValue: false, description: 'Should result be sent to everyone?')
+	}
     stages {
 		stage('Pre Build setup') {
 			steps{
@@ -62,7 +65,7 @@ pipeline {
 		stage('Notify users') {
 			steps {
 				echo 'Emailing every one'
-				build job: 'TOOL-2798EmailTest', parameters: [[$class: 'BooleanParameterValue', name: 'SEND_TO_ALL', value: false]]
+				build job: 'TOOL-2798EmailTest', parameters: [[$class: 'BooleanParameterValue', name: 'SEND_TO_ALL', value: ${params.PERSON}]]
 			}
 		}	
 	}
