@@ -33,15 +33,17 @@ pipeline {
 						echo 'Testing the UI'
 					}
 				}
-				stages {
-					stage ('PC lint') {	
-						steps{
-							echo 'PC lint tests'
+				stage ('PC lint') {	
+					stages {
+						stage ('PC lint tests') {	
+							steps{
+								echo 'PC lint tests'
+							}
 						}
-					}
-					stage ('Upload result') {
-						steps {
-							echo 'upload result'
+						stage ('Upload result') {
+							steps {
+								echo 'upload result'
+							}
 						}
 					}
 				}
