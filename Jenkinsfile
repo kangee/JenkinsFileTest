@@ -1,28 +1,59 @@
 pipeline {
     agent any
     stages {
-	    stage('Buld') {
+		stage('Pre Build setup') {
 			steps{
-				echo 'Bulding'
+				echo 'Seting up release proccess'
+			}
+		}
+		stage('Crating related stuff') {
+			steps{
+				echo 'Creating all tags if not exists'
+			}
+		}
+	    stage('Build') {
+			steps{
+				echo 'Building'
 			}
 		}
 		stage('Parallel Tests') {
 			parallel {
-				stage('Test 1') {
+				stage('Linux CLI tests') {
 					steps {
-						echo 'Testing'
+						echo 'Testing linux CLI'
 					}
 				}
-				stage ('Test 2') {
+				stage ('Windows CLI Tests') {
 					steps {	
-						echo 'Parallel step'
+						echo 'testing Windows CLI'
+					}
+				}
+				stage ('UI Tests') {
+					steps {	
+						echo 'Testing the UI'
+					}
+				}
+				stage ('PC lint') {
+					steps {	
+						echo 'PC lint tests'
+						echo 'upload result'
+					}
+				}
+				stage ('python CLI tests') {
+					steps {	
+						echo 'python tests'
 					}
 				}
 			}
 		}
-		stage('Deploy') {
+		stage('Upload if Proper release') {
 			steps {
-				echo 'Deploying'
+				echo 'Uploading'
+			}
+		}
+		stage('Notify users') {
+			steps {
+				echo 'Emailing every one'
 			}
 		}	
 	}
