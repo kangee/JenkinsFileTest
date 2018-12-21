@@ -14,6 +14,7 @@ pipeline {
 	    stage('Build') {
 			steps{
 				echo 'Building'
+				sleep 15
 			}
 		}
 		stage('Parallel Tests') {
@@ -21,16 +22,19 @@ pipeline {
 				stage('Linux CLI tests') {
 					steps {
 						echo 'Testing linux CLI'
+						sleep $((RANDOM %+ 15))
 					}
 				}
 				stage ('Windows CLI Tests') {
 					steps {	
 						echo 'testing Windows CLI'
+						sleep $((RANDOM %+ 15))
 					}
 				}
 				stage ('UI Tests') {
 					steps {	
 						echo 'Testing the UI'
+						sleep $((RANDOM %+ 15))
 					}
 				}
 				stage ('PC lint') {	
@@ -38,11 +42,13 @@ pipeline {
 						stage ('PC lint tests') {	
 							steps{
 								echo 'PC lint tests'
+								sleep $((RANDOM %+ 15))
 							}
 						}
 						stage ('Upload result') {
 							steps {
 								echo 'upload result'
+								sleep $((RANDOM %+ 15))
 							}
 						}
 					}
@@ -50,6 +56,7 @@ pipeline {
 				stage ('python CLI tests') {
 					steps {	
 						echo 'python tests'
+						sleep $((RANDOM %+ 15))
 					}
 				}
 			}
@@ -57,6 +64,7 @@ pipeline {
 		stage('Upload if Proper release') {
 			steps {
 				echo 'Uploading'
+				sleep 15
 			}
 		}
 		stage('Notify users') {
