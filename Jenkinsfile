@@ -1,5 +1,4 @@
 
-LocalVar=params.CONFLUENCE_PAGE_ID
 
 pipeline {
     agent any
@@ -11,18 +10,17 @@ pipeline {
 		stage('Pre Build setup') {
 			steps{
 				echo 'Seting up release proccess'
-				build job: 'TOOL-2799', parameters: [[$class: 'BooleanParameterValue', name: 'RELEASE_NUMBER', value: params.RELEASE_NUMBER],[$class: 'StringParameterValue', name: 'CONFLUENCE_PAGE_ID', value: ${LocalVar}]]
+				build job: 'TOOL-2799', parameters: [[$class: 'StringParameterValue', name: 'RELEASE_NUMBER', value: params.RELEASE_NUMBER],[$class: 'StringParameterValue', name: 'CONFLUENCE_PAGE_ID', value: params.CONFLUENCE_PAGE_ID]]
 				script {
 				  // trim removes leading and trailing whitespace from the string
-				  LocalVar = readFile('test.txt').trim()
+				  params.CONFLUENCE_PAGE_ID = readFile('test.txt').trim()
 				}
 			}
 		}
 		stage('Crating related stuff') {
 			steps{
 				echo 'Creating all tags if not exists'
-				build job: 'Tool-2799-downstrem', parameters: [[$class: 'StringParameterValue', name: 'RELEASE_NUMBER', value: params.RELEASE_NUMBER],[$class: 'StringParameterValue', name: 'CONFLUENCE_PAGE_ID', value: ${LocalVar}]]
-	
+				echo "${params.CONFLUENCE_PAGE_ID}"
 			}
 		}
 	    stage('Build') {
