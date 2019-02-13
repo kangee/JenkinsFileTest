@@ -11,6 +11,7 @@ pipeline {
 			steps{
 				echo 'Seting up release proccess'
 				build job: 'TOOL-2799', parameters: [[$class: 'StringParameterValue', name: 'RELEASE_NUMBER', value: params.RELEASE_NUMBER],[$class: 'StringParameterValue', name: 'CONFLUENCE_PAGE_ID', value: params.CONFLUENCE_PAGE_ID]]
+				copyArtifacts filter: 'test.txt', fingerprintArtifacts: true, projectName: 'TOOL-2799', selector: lastSuccessful()
 				script {
 				  // trim removes leading and trailing whitespace from the string
 				  params.CONFLUENCE_PAGE_ID = readFile('test.txt').trim()
