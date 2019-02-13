@@ -45,20 +45,7 @@ pipeline {
 						echo 'Testing the UI'
 					}
 				}
-				stage ('PC lint') {	
-					stages {
-						stage ('PC lint tests') {	
-							steps{
-								echo 'PC lint tests'
-							}
-						}
-						stage ('Upload result') {
-							steps {
-								echo 'upload result'
-							}
-						}
-					}
-				}
+				
 				stage ('python CLI tests') {
 					steps {	
 						echo 'python tests'
