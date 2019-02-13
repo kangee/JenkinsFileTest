@@ -1,4 +1,5 @@
 
+ConfluencePageId=''
 
 pipeline {
     agent any
@@ -14,14 +15,14 @@ pipeline {
 				copyArtifacts filter: 'test.txt', fingerprintArtifacts: true, projectName: 'TOOL-2799', selector: lastSuccessful()
 				script {
 				  // trim removes leading and trailing whitespace from the string
-				  params.CONFLUENCE_PAGE_ID = readFile('test.txt').trim()
+				  ConfluencePageId = readFile('test.txt').trim()
 				}
 			}
 		}
 		stage('Crating related stuff') {
 			steps{
 				echo 'Creating all tags if not exists'
-				echo "${params.CONFLUENCE_PAGE_ID}"
+				echo "${ConfluencePageId}"
 			}
 		}
 	    stage('Build') {
