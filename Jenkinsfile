@@ -1,17 +1,28 @@
+
+LocalVar=params.CONFLUENCE_PAGE_ID
+
 pipeline {
     agent any
 	parameters {
-		booleanParam(name: 'SEND_RESULT_TO_EVERYONE', defaultValue: false, description: 'Should result be sent to everyone?')
+		stringParam(name: 'RELEASE_NUMBER', defaultValue: '', description: 'The release number for this release.')
+		stringParam(name: 'CONFLUENCE_PAGE_ID', defaultValue: '', description: 'The confluence page assosiated with this release, if empty tries to create a new page.')
 	}
     stages {
 		stage('Pre Build setup') {
 			steps{
 				echo 'Seting up release proccess'
+				build job: 'TOOL-2799', parameters: [[$class: 'BooleanParameterValue', name: 'RELEASE_NUMBER', value: params.RELEASE_NUMBER],[$class: 'StringParameterValue', name: 'CONFLUENCE_PAGE_ID', value: ${LocalVar}]]
+				script {
+				  // trim removes leading and trailing whitespace from the string
+				  LocalVar = readFile('test.txt').trim()
+				}
 			}
 		}
 		stage('Crating related stuff') {
 			steps{
 				echo 'Creating all tags if not exists'
+				build job: 'Tool-2799-downstrem', parameters: [[$class: 'StringParameterValue', name: 'RELEASE_NUMBER', value: params.RELEASE_NUMBER],[$class: 'StringParameterValue', name: 'CONFLUENCE_PAGE_ID', value: ${LocalVar}]]
+	
 			}
 		}
 	    stage('Build') {
@@ -65,8 +76,7 @@ pipeline {
 		stage('Notify users') {
 			steps {
 				echo 'Emailing every one'
-				build job: 'TOOL-2798EmailTest', parameters: [[$class: 'BooleanParameterValue', name: 'SEND_TO_ALL', value: params.SEND_RESULT_TO_EVERYONE]]
-			}
+				}
 		}	
 	}
 }
