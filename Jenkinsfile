@@ -10,7 +10,7 @@ pipeline {
 		stage('geting build user'){
 			steps{
 				script{
-					if ("${params.DIST_TO_ALL}") {
+					if (params.DIST_TO_ALL) {
 						echo 'I only execute on the master branch'
 						email = 'markus.fridolfsson@gmail.com'
 					} else {
