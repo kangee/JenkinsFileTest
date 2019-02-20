@@ -8,18 +8,20 @@ pipeline {
 	}
     stages {
 		stage('geting build user'){
-			
-				if (DIST_TO_ALL) {
-					echo 'I only execute on the master branch'
-					email = 'markus.fridolfsson@gmail.com'
-				} else {
-					echo 'I execute elsewhere'
-					wrap([$class: 'BuildUser']) {
-					  email = BUILD_USER_EMAIL
+			steps{
+				script{
+					if (DIST_TO_ALL) {
+						echo 'I only execute on the master branch'
+						email = 'markus.fridolfsson@gmail.com'
+					} else {
+						echo 'I execute elsewhere'
+						wrap([$class: 'BuildUser']) {
+						  email = BUILD_USER_EMAIL
+						}
 					}
+					echo "${email}"
 				}
-				echo "${email}"
-			
+			}
 		}
 	}	
 }
