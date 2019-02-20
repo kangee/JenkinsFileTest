@@ -20,6 +20,7 @@ pipeline {
 						}
 					}
 					echo "${email}"
+					echo "${DIST_TO_ALL}"
 				}
 			}
 		}
