@@ -20,13 +20,12 @@ pipeline {
 							  email = BUILD_USER_EMAIL
 							
 						}
-						
-						mail bcc: '',
+					}
+				}
+				mail bcc: '',
 						body: '''Hello from jenkins''',
 						replyTo: "${BUILD_USER_EMAIL}", subject: 'test', to: "${email}",
 						cc: '', from: ''
-					}
-				}
 			}
 		}
 	}	
