@@ -8,23 +8,27 @@ pipeline {
 	}
     stages {
 		stage('geting build user'){
+			environment {
+				email=''
+			}
 			steps{
+			
 				script{
 					wrap([$class: 'BuildUser']) {
 						if (params.DIST_TO_ALL) {
 							echo 'I only execute on the master branch'
-							email = 'markus.fridolfsson@gmail.com'
+							env.email = 'markus.fridolfsson@gmail.com'
 						} else {
 							echo 'I execute elsewhere'
 							
-							  email = BUILD_USER_EMAIL
+							  env.email = BUILD_USER_EMAIL
 							
 						}
 					}
 				}
 				mail bcc: '',
 						body: '''Hello from jenkins''',
-						replyTo: "${BUILD_USER_EMAIL}", subject: 'test', to: "${email}",
+						replyTo: "${BUILD_USER_EMAIL}", subject: 'test', to: "${env.email}",
 						cc: '', from: ''
 			}
 		}
