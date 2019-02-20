@@ -8,7 +8,7 @@ pipeline {
 	}
     stages {
 		stage('geting build user'){
-			steps {
+			
 				if (DIST_TO_ALL) {
 					echo 'I only execute on the master branch'
 					email = 'markus.fridolfsson@gmail.com'
@@ -19,7 +19,7 @@ pipeline {
 					}
 				}
 				echo "${email}"
-			}
+			
 		}
 	}	
 }
