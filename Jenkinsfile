@@ -19,8 +19,11 @@ pipeline {
 						  email = BUILD_USER_EMAIL
 						}
 					}
-					echo "${email}"
-					echo "${params.DIST_TO_ALL}"
+					
+					mail 
+					body: """ Sending an email""",
+					replyTo: "${BUILD_USER_EMAIL}", subject: 'test', to: "${email}"
+					
 				}
 			}
 		}
