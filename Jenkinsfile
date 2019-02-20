@@ -12,7 +12,6 @@ pipeline {
 				email=''
 			}
 			steps{
-			
 				script{
 					wrap([$class: 'BuildUser']) {
 						if (params.DIST_TO_ALL) {
@@ -26,8 +25,8 @@ pipeline {
 						}
 					}
 				}
-				mail bcc: '',
-						body: '''Hello from jenkins''', subject: 'test', to: "markus.fridolfsson@gmail.com"
+				echo "${env.email}"
+				mail body: '''Hello from jenkins''', subject: 'test', to: "${env.email}"
 			}
 		}
 	}	
