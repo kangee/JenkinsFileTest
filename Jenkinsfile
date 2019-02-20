@@ -21,7 +21,7 @@ pipeline {
 					}
 					
 					mail 
-					body: """ Sending an email""",
+					body: '''Hello from jenkins''',
 					replyTo: "${BUILD_USER_EMAIL}", subject: 'test', to: "${email}"
 					
 				}
