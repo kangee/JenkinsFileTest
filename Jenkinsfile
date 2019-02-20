@@ -27,8 +27,7 @@ pipeline {
 					}
 				}
 				mail bcc: '',
-						body: '''Hello from jenkins''', subject: 'test', to: "markus.fridolfsson@gmail.com",
-						cc: '', from: ''
+						body: '''Hello from jenkins''', subject: 'test', to: "markus.fridolfsson@gmail.com"
 			}
 		}
 	}	
