@@ -1,6 +1,7 @@
 
-ConfluencePageId=''
+
 RecipiantEmail=''
+ArtifactBuildNumber=''
 
 pipeline {
     agent any
@@ -8,6 +9,14 @@ pipeline {
 		booleanParam( name: 'DIST_TO_ALL', defaultValue: false, description: 'Select if the result of this build should be sent to this dist email list: Dist_All@arccore.onmicrosoft.com')
 	}
     stages {
+		stage ('Build TOOL-2807'){
+			steps{
+				script{
+					result=build job: 'Tool-2807'
+					ArtifactBuildNumber=${result.getNumber}
+				}
+			}
+		}
 		stage('geting build user'){
 			steps{
 				script{
@@ -23,8 +32,7 @@ pipeline {
 						}
 					}
 				}
-				echo "${env.email}"
-				mail body: '''Hello from jenkins''', subject: 'test', to: "${RecipiantEmail}"
+				mail body: '''Hello from jenkins this is link ${ArtifactBuildNumber}''', subject: 'test', to: "${RecipiantEmail}"
 			}
 		}
 	}	
