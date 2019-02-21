@@ -13,7 +13,7 @@ pipeline {
 			steps{
 				script{
 					result=build job: 'Tool-2807'
-					ArtifactBuildNumber="${result.getNumber}"
+					ArtifactBuildNumber="${result.getNumber()}"
 				}
 			}
 		}
