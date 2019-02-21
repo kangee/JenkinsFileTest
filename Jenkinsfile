@@ -32,7 +32,7 @@ pipeline {
 						}
 					}
 				}
-				mail body: '''Hello from jenkins this is link "${ArtifactBuildNumber}"''', subject: 'test', to: "${RecipiantEmail}"
+				mail body: "Hello from jenkins this is link ${ArtifactBuildNumber}", subject: 'test', to: "${RecipiantEmail}"
 			}
 		}
 	}	
